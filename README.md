@@ -1,2 +1,5 @@
-# struts2-finalproject
-Struts2 REST Plugin with Hibernate ORM
+# Struts2 REST example
+*Using Struts2 Rest-Plugin
+*Using Hibernate ORM
+*Using MariaDB as DBMS
+*Using Standalone Tomcat as webserver
