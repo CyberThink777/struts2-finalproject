@@ -1,4 +1,4 @@
-# Struts2 REST example
+# Struts2 CRUD example
 * Using Struts2 Rest-Plugin
 * Using Hibernate ORM
 * Using MariaDB as DBMS
