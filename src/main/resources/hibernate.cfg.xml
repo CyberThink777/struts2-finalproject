@@ -9,6 +9,6 @@
         <property name="hibernate.current_session_context_class">thread</property>
 
         <mapping class="model.User"/>
-<!--        <mapping class="model.Book"/>-->
+        <mapping class="model.Book"/>
     </session-factory>
 </hibernate-configuration>
