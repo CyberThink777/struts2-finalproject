@@ -4,8 +4,8 @@ import java.sql.*;
 
 public class Encrypt {
     public static void main(String[] args) {
-        System.out.println(BCrypt.hashpw("admin",BCrypt.gensalt()));
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/finalproject","root","toor")) {
+        System.out.println(BCrypt.hashpw("admin",BCrypt.gensalt("$2b")));
+/*        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/finalproject","root","toor")) {
             PreparedStatement ps = conn.prepareStatement("SELECT users.password FROM users WHERE username = 'admin' ");
             ResultSet rs = ps.executeQuery();
             rs.next();
@@ -13,6 +13,6 @@ public class Encrypt {
             System.out.println(rs.getString(1));
         } catch (SQLException ignored) {
             ignored.printStackTrace();
-        }
+        }*/
     }
 }

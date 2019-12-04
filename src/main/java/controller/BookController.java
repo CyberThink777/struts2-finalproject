@@ -18,20 +18,58 @@ import java.util.Map;
 
 @Results(@Result(name = "login", type = "redirect", location = "/login"))
 public class BookController extends ActionSupport implements ModelDriven<Object>, ServletContextAware, SessionAware {
-    private Map<String,Object> session;
+    private Map<String, Object> session;
     private ServletContext ctx;
     private Book book = new Book();
     private List<Book> bookList;
     private String id;
 
     public String index() {
-        User user = (User) session.get("user");
-        if (user == null)
-            return "login";
+        if (userExist()) {
+            SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
+            BookDao bookDao = new BookDao(sf);
+            bookList = bookDao.getBooks();
+            return "index";
+        } else return "login";
+    }
+
+    public String show() {
+        if (userExist()) {
+            SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
+            BookDao bookDao = new BookDao(sf);
+            book = bookDao.getBook(id);
+            return "index";
+        } else return "login";
+    }
+
+    public String create() {
         SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
         BookDao bookDao = new BookDao(sf);
-        bookList = bookDao.getBooks();
+        bookDao.create(book);
         return "index";
+    }
+
+    public String edit() {
+        return "";
+    }
+
+    public String update() {
+        SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
+        BookDao bookDao = new BookDao(sf);
+        bookDao.update(book);
+        return "index";
+    }
+
+    public String destroy() {
+        SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
+        BookDao bookDao = new BookDao(sf);
+        bookDao.delete(id);
+        return "index";
+    }
+
+    private boolean userExist() {
+        User user = (User) session.get("user");
+        return user != null;
     }
 
     @Override
