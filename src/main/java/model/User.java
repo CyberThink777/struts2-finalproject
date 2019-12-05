@@ -17,9 +17,6 @@ public class User implements Serializable {
     @Column(name = "password")
     private String pass;
 
-    public User() {
-    }
-
     @RequiredStringValidator(key = "error.required", messageParams = "getText('user.username')")
     @StringLengthFieldValidator(maxLength = "32", key = "error.length", messageParams = "getText('user.username')")
     public String getUsername() {
@@ -37,5 +34,10 @@ public class User implements Serializable {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    @Override
+    public String toString() {
+        return username;
     }
 }

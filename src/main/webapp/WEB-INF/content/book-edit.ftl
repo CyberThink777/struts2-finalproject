@@ -1,0 +1,1 @@
+<#include "book-show.ftl">

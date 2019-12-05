@@ -16,7 +16,9 @@ import javax.servlet.ServletContext;
 import java.util.List;
 import java.util.Map;
 
-@Results(@Result(name = "login", type = "redirect", location = "/login"))
+@Results({@Result(name = "login", type = "redirect", location = "/login"),
+        @Result(name = "success", type = "redirectAction", params = {"actionName", "book"})
+})
 public class BookController extends ActionSupport implements ModelDriven<Object>, ServletContextAware, SessionAware {
     private Map<String, Object> session;
     private ServletContext ctx;
@@ -25,42 +27,56 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
     private String id;
 
     public String index() {
-        if (userExist()) {
-            SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
-            BookDao bookDao = new BookDao(sf);
-            bookList = bookDao.getBooks();
-            return "index";
-        } else return "login";
+        if (!userExist())
+            return "login";
+        SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
+        BookDao bookDao = new BookDao(sf);
+        bookList = bookDao.getBooks();
+        return "index";
     }
 
     public String show() {
-        if (userExist()) {
-            SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
-            BookDao bookDao = new BookDao(sf);
-            book = bookDao.getBook(id);
-            return "index";
-        } else return "login";
+        if (!userExist())
+            return "login";
+        SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
+        BookDao bookDao = new BookDao(sf);
+        book = bookDao.getBook(id);
+        return "show";
     }
 
     public String create() {
+        if (!userExist())
+            return "login";
         SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
         BookDao bookDao = new BookDao(sf);
+        book.setEditBy(session.get("user").toString());
         bookDao.create(book);
-        return "index";
+        addActionMessage("test");
+        return SUCCESS;
     }
 
     public String edit() {
-        return "";
+        if (!userExist())
+            return "login";
+        SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
+        BookDao bookDao = new BookDao(sf);
+        book = bookDao.getBook(id);
+        return "edit";
     }
 
     public String update() {
+        if (!userExist())
+            return "login";
         SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
         BookDao bookDao = new BookDao(sf);
+        book.setEditBy(session.get("user").toString());
         bookDao.update(book);
-        return "index";
+        return SUCCESS;
     }
 
     public String destroy() {
+        if (!userExist())
+            return "login";
         SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
         BookDao bookDao = new BookDao(sf);
         bookDao.delete(id);

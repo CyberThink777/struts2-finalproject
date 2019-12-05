@@ -8,16 +8,17 @@ import java.util.List;
 
 public class BookDao {
     private SessionFactory sf;
-    //TODO Check for Exception
+
+    //TODO Check for Exception & check POST method!
     public BookDao(SessionFactory sf) {
         this.sf = sf;
     }
 
     public List<Book> getBooks() {
         List<Book> bookList;
-        try(Session session = sf.openSession()) {
+        try (Session session = sf.openSession()) {
             session.beginTransaction();
-            bookList =  session.createQuery("from books").list();
+            bookList = session.createQuery("from books").list();
             session.getTransaction().commit();
         }
         return bookList;

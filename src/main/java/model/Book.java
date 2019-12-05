@@ -7,11 +7,8 @@ import java.io.Serializable;
 
 @Entity(name = "books")
 public class Book implements Serializable {
-    private String isbn, title, author, editBy;
+    private String isbn, title, author, publisher, editBy;
     private int year, count;
-
-    public Book() {
-    }
 
     @Id
     @Column(name = "ISBN")
@@ -37,6 +34,14 @@ public class Book implements Serializable {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
     }
 
     public int getYear() {
