@@ -26,8 +26,9 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
     private List<Book> bookList;
     private String id;
 
+    //GET /book
     public String index() {
-        if (!userExist())
+        if (userNotFound())
             return "login";
         SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
         BookDao bookDao = new BookDao(sf);
@@ -35,8 +36,9 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
         return "index";
     }
 
+    //GET /book/${id}
     public String show() {
-        if (!userExist())
+        if (userNotFound())
             return "login";
         SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
         BookDao bookDao = new BookDao(sf);
@@ -44,8 +46,9 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
         return "show";
     }
 
+    //POST /book
     public String create() {
-        if (!userExist())
+        if (userNotFound())
             return "login";
         SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
         BookDao bookDao = new BookDao(sf);
@@ -55,8 +58,9 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
         return SUCCESS;
     }
 
+    //GET /book/${id}/edit
     public String edit() {
-        if (!userExist())
+        if (userNotFound())
             return "login";
         SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
         BookDao bookDao = new BookDao(sf);
@@ -64,8 +68,9 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
         return "edit";
     }
 
+    //PUT /book/${id}
     public String update() {
-        if (!userExist())
+        if (userNotFound())
             return "login";
         SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
         BookDao bookDao = new BookDao(sf);
@@ -74,18 +79,26 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
         return SUCCESS;
     }
 
+    //DELETE /book/${id}
     public String destroy() {
-        if (!userExist())
+        if (userNotFound())
             return "login";
         SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
         BookDao bookDao = new BookDao(sf);
         bookDao.delete(id);
-        return "index";
+        return SUCCESS;
     }
 
-    private boolean userExist() {
+    //GET /book/${id}/delete  DELETE confirmation Page
+    public String delete() {
+        if (userNotFound())
+            return "login";
+        else return "delete";
+    }
+
+    private boolean userNotFound() {
         User user = (User) session.get("user");
-        return user != null;
+        return user == null;
     }
 
     @Override

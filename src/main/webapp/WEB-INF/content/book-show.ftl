@@ -1,4 +1,4 @@
-<html>
+<html lang="${.lang}">
 <head>
     <#include "../template/head.ftl">
 </head>

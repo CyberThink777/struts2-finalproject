@@ -22,11 +22,13 @@ public class LoginController extends ActionSupport implements ModelDriven<User>,
     private Map<String,Object> session;
     private User user = new User();
 
+    //GET /login
     public String index() {
         session.remove("user");
         return INPUT;
     }
 
+    //POST /login
     public String create() throws Exception {
         SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
         UserDao userDao = new UserDao(sf);

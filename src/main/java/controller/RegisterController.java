@@ -14,17 +14,19 @@ import org.hibernate.SessionFactory;
 import javax.servlet.ServletContext;
 
 @Results(
-        @Result(type = "freemarker", location = "login.ftl")
+        @Result(type = "redirectAction", params = {"actionName", "login"})
 )
 public class RegisterController extends ActionSupport implements ModelDriven<User>, ServletContextAware {
     private ServletContext ctx;
     private User user = new User();
     private String cpass;
 
+    //GET /register
     public String index() {
         return INPUT;
     }
 
+    //POST /register
     public String create() {
         SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
         UserDao userDao = new UserDao(sf);
