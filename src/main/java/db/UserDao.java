@@ -12,15 +12,13 @@ public class UserDao {
         this.sf = sf;
     }
 
-    public boolean login(User user) throws Exception {
+    public boolean login(User user) throws NullPointerException {
         try (Session session = sf.openSession()) {
             session.beginTransaction();
             User storedUser = (User) session.createQuery("from users where username = :username").setParameter("username",
                     user.getUsername()).uniqueResult();
             session.getTransaction().commit();
             return BCrypt.checkpw(user.getPass(), storedUser.getPass());
-        } catch (NullPointerException e) {
-            throw e;
         }
     }
 

@@ -1,11 +1,10 @@
 <html lang="${.lang}">
+<#--TODO Design cuk!-->
 <head>
     <#include "../template/head.ftl">
+    <title></title>
 </head>
-<#--TODO Design cuk!-->
-<#if user??>
-    ${user.username}
-</#if>
+<#include "../template/navbar.ftl">
 <#if (actionMessages?size>0)>
     <h1>${actionMessages[0]}</h1>
 </#if>

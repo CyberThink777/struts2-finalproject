@@ -18,7 +18,7 @@ public class BookDao {
         List<Book> bookList;
         try (Session session = sf.openSession()) {
             session.beginTransaction();
-            bookList = session.createQuery("from books").list();
+            bookList = session.createQuery("from books", Book.class).list();
             session.getTransaction().commit();
         }
         return bookList;
@@ -28,7 +28,7 @@ public class BookDao {
         Book book;
         try (Session session = sf.openSession()) {
             session.beginTransaction();
-            book = (Book) session.get(Book.class, isbn);
+            book = session.get(Book.class, isbn);
             session.getTransaction().commit();
         }
         return book;

@@ -89,7 +89,7 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
         return SUCCESS;
     }
 
-    //GET /book/${id}/delete  DELETE confirmation Page
+    //GET /book/${id}/delete  DELETE confirmation Page TODO:Check for non existence
     public String delete() {
         if (userNotFound())
             return "login";
@@ -113,6 +113,10 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public void setId(String id) {
