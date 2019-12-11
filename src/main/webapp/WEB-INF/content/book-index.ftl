@@ -1,17 +1,42 @@
 <html lang="${.lang}">
-<#--TODO Design cuk!-->
+<#--TODO Add get new-->
 <head>
     <#include "../template/head.ftl">
-    <title></title>
+    <title><@s.text name="book.title"/> ${user.username}!</title>
 </head>
-<#include "../template/navbar.ftl">
-<#if (actionMessages?size>0)>
-    <h1>${actionMessages[0]}</h1>
-</#if>
-<ul>
-    <#list model as book>
-        <li>${book.isbn}</li>
-    </#list>
-</ul>
-<a href="/login">Logout</a>
+<body>
+    <#include "../template/navbar.ftl">
+    <div class="container">
+        <div class="row">
+            <div class="col-11">
+                <h1 class="m-3">Book List</h1>
+                <#include "../template/actionMsg.ftl">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col"><@s.text name="isbn"/></th>
+                        <th scope="col"><@s.text name="title"/></th>
+                        <th scope="col"><@s.text name="count"/></th>
+                        <th scope="col"><@s.text name="editBy"/></th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <#if (model?size>0)>
+                        <#list model as book>
+                            <tr>
+                                <th scope="row">${book.isbn}</th>
+                                <td>${book.title}</td>
+                                <td>${book.count}</td>
+                                <td>${book.editBy}</td>
+                                <td><a href="/book/${book.isbn}" class="badge badge-primary">Details</a></td>
+                            </tr>
+                        </#list>
+                    </#if>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
 </html>

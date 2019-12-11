@@ -26,6 +26,7 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
     private List<Book> bookList;
     private String id;
 
+    //TODO:Check for non existence
     //GET /book
     public String index() {
         if (userNotFound())
@@ -89,12 +90,6 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
         return SUCCESS;
     }
 
-    //GET /book/${id}/delete  DELETE confirmation Page TODO:Check for non existence
-    public String delete() {
-        if (userNotFound())
-            return "login";
-        else return "delete";
-    }
 
     private boolean userNotFound() {
         User user = (User) session.get("user");

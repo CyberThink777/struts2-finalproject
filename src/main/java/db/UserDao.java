@@ -5,6 +5,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
+import javax.persistence.PersistenceException;
+
 public class UserDao {
     private SessionFactory sf;
 
@@ -31,7 +33,7 @@ public class UserDao {
             session.save(hashedUser);
             session.getTransaction().commit();
             return true;
-        } catch (Exception e) {
+        } catch (PersistenceException e) {
             return false;
         }
     }

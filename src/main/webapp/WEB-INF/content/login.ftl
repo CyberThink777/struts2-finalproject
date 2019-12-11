@@ -28,12 +28,7 @@
 <body>
 <h2 class="mx-auto"><@s.text name="login.form"/></h2>
 <form action="login" method="POST">
-    <#if (actionMessages?size>0)>
-        <div class="alert alert-success my-1 p-1 pl-2" id="msg" role="alert">${actionMessages[0]}</div>
-    </#if>
-    <#if (actionErrors?size>0)>
-        <div class="alert alert-danger my-1 p-1 pl-2" id="msg" role="alert">${actionErrors[0]}</div>
-    </#if>
+    <#include "../template/actionMsg.ftl">
     <div class="form-group">
         <@s.textfield class="form-control" name="username" key="user.username"
         placeholder="%{getText('form.username')}"/>

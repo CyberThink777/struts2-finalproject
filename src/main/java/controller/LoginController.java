@@ -29,7 +29,7 @@ public class LoginController extends ActionSupport implements ModelDriven<User>,
     }
 
     //POST /login
-    public String create() throws Exception {
+    public String create() {
         SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
         UserDao userDao = new UserDao(sf);
         try {
