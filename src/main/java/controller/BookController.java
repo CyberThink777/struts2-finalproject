@@ -26,7 +26,7 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
     private List<Book> bookList;
     private String id;
 
-    //TODO:Check for non existence
+    //TODO:Check for id non existence
     //GET /book
     public String index() {
         if (userNotFound())
@@ -45,6 +45,13 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
         BookDao bookDao = new BookDao(sf);
         book = bookDao.getBook(id);
         return "show";
+    }
+
+    //GER /book/new
+    public String editNew() {
+        if (userNotFound())
+            return "login";
+        return "new";
     }
 
     //POST /book

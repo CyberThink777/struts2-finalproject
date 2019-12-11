@@ -6,17 +6,17 @@
             <form method="POST" action="/book/${id}">
                 <input type="hidden" name="_method" value="DELETE"/>
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                <h5 class="modal-title" id="deleteModalLabel"><@s.text name="delete.confirm"/></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Are you sure you want to delete ${model.title}?
+                <@s.text name="delete.confirm.msg"/> ${model.title}?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Confirm</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><@s.text name="button.cancel"/></button>
+                <button type="submit" class="btn btn-primary"><@s.text name="button.confirm"/></button>
             </div>
             </form>
         </div>

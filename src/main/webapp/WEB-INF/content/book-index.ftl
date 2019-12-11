@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row">
             <div class="col-11">
-                <h1 class="m-3">Book List</h1>
+                <h1 class="m-3"><@s.text name="index.heading"/></h1>
                 <#include "../template/actionMsg.ftl">
                 <table class="table">
                     <thead>
@@ -29,13 +29,16 @@
                                 <td>${book.title}</td>
                                 <td>${book.count}</td>
                                 <td>${book.editBy}</td>
-                                <td><a href="/book/${book.isbn}" class="badge badge-primary">Details</a></td>
+                                <td><a href="/book/${book.isbn}"><@s.text name="index.detail"/></a></td>
                             </tr>
                         </#list>
                     </#if>
                     </tbody>
                 </table>
             </div>
+        </div>
+        <div class="row">
+            <a href="/book/new">Create</a>
         </div>
     </div>
 </body>
