@@ -9,7 +9,6 @@ import java.util.List;
 public class BookDao {
     private SessionFactory sf;
 
-    //TODO Check for Exception & check POST method!
     public BookDao(SessionFactory sf) {
         this.sf = sf;
     }
@@ -34,30 +33,27 @@ public class BookDao {
         return book;
     }
 
-    public boolean delete(String isbn) {
+    public void delete(String isbn) {
         try (Session session = sf.openSession()) {
             session.beginTransaction();
             session.delete(session.get(Book.class, isbn));
             session.getTransaction().commit();
-            return true;
         }
     }
 
-    public boolean update(Book book) {
+    public void update(Book book) {
         try (Session session = sf.openSession()) {
             session.beginTransaction();
-            session.update(book);
+            session.merge(book);
             session.getTransaction().commit();
-            return true;
         }
     }
 
-    public boolean create(Book book) {
+    public void create(Book book) {
         try (Session session = sf.openSession()) {
             session.beginTransaction();
             session.save(book);
             session.getTransaction().commit();
-            return true;
         }
     }
 }

@@ -13,6 +13,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6 top-m">
+                <#include "../template/actionMsg.ftl">
                 <ul class="list-group">
                     <li class="list-group-item"><@s.text name="isbn"/>: ${model.isbn}</li>
                     <li class="list-group-item"><@s.text name="title"/>: ${model.title}</li>

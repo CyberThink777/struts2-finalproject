@@ -25,11 +25,11 @@
             <h2 class="mx-auto"><@s.text name="index.create"/></h2>
             <form method="POST" action="/book/${id}">
                 <input type="hidden" name="_method" value="PUT"/>
-                    <div class="form-group">
-                        <@s.textfield class="form-control-plaintext" name="isbn" key="isbn" value="${model.isbn}"
-                        dynamicAttributes={"readonly":" "}/>
-                        <#--TODO uneditable and part of id-->
-                    </div>
+                <div class="form-group">
+                    <label for="isbn" class="label"><@s.text name="isbn"/>:</label>
+                    <p id="isbn" class="form-control-plaintext" aria-describedby="isbnHelp">${model.isbn}</p>
+                    <small id="isbnHelp" class="form-text text-muted"><@s.text name="isbn.help"/></small>
+                </div>
                 <div class="form-group">
                     <@s.textfield class="form-control" name="title" key="title" value="${model.title}"/>
                 </div>

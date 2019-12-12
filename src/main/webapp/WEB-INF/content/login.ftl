@@ -28,8 +28,8 @@
     <div class="row">
         <div class="col-sm-4 col-centered">
             <h2 class="mx-auto"><@s.text name="login.form"/></h2>
+            <#include "../template/actionMsg.ftl">
             <form action="login" method="POST">
-                <#include "../template/actionMsg.ftl">
                 <div class="form-group">
                     <@s.textfield class="form-control" name="username" key="user.username"
                     placeholder="%{getText('form.username')}"/>
