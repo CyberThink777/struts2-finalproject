@@ -1,4 +1,3 @@
-<#--TODO I18N-->
 <div class="modal fade" id="deleteConfirm" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">

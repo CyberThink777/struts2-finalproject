@@ -19,7 +19,7 @@ import java.util.Map;
 )
 public class LoginController extends ActionSupport implements ModelDriven<User>, ServletContextAware, SessionAware {
     private ServletContext ctx;
-    private Map<String,Object> session;
+    private Map<String, Object> session;
     private User user = new User();
 
     //GET /login
@@ -37,11 +37,11 @@ public class LoginController extends ActionSupport implements ModelDriven<User>,
                 session.put("user", user);
                 return SUCCESS;
             } else {
-                addFieldError("pass", getText("error.wrong", new String[] {getText("user.pass")}));
+                addFieldError("pass", getText("error.wrong", new String[]{getText("user.pass")}));
                 return INPUT;
             }
         } catch (NullPointerException e) {
-            addFieldError("username", getText("error.notFound", new String[] {getText("user.username")}));
+            addFieldError("username", getText("error.notFound", new String[]{getText("user.username")}));
             return INPUT;
         }
     }

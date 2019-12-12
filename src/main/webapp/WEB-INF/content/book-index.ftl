@@ -1,5 +1,4 @@
 <html lang="${.lang}">
-<#--TODO Add get new-->
 <head>
     <#include "../template/head.ftl">
     <title><@s.text name="book.title"/> ${user.username}!</title>
@@ -8,7 +7,7 @@
     <#include "../template/navbar.ftl">
     <div class="container">
         <div class="row">
-            <div class="col-11">
+            <div class="col-sm-11">
                 <h1 class="m-3"><@s.text name="index.heading"/></h1>
                 <#include "../template/actionMsg.ftl">
                 <table class="table">
@@ -38,7 +37,7 @@
             </div>
         </div>
         <div class="row">
-            <a href="/book/new">Create</a>
+            <a href="/book/new"><@s.text name="index.create"/></a>
         </div>
     </div>
 </body>
