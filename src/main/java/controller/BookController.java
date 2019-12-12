@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 @Results({@Result(name = "login", type = "redirectAction", params = {"actionName", "login"}),
-        @Result(name = "success", type = "redirectAction", params = {"actionName", "book"})
+        @Result(name = "success", type = "redirectAction", params = {"actionName", "book"}),
+        @Result(name = "404", type = "httpheader", params = {"error", "404", "errorMessage", "Records Not Found!"})
 })
 public class BookController extends ActionSupport implements ModelDriven<Object>, ServletContextAware, SessionAware {
     private Map<String, Object> session;
@@ -25,7 +26,6 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
     private List<Book> bookList;
     private String id;
 
-    //TODO 2.Check null id. i18n.
     //GET /book
     public String index() {
         if (userNotFound()) {
@@ -47,7 +47,7 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
         SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
         BookDao bookDao = new BookDao(sf);
         book = bookDao.getBook(id);
-        return "show";
+        return book == null ? "404" : "show";
     }
 
     //GET /book/new
@@ -98,7 +98,11 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
         BookDao bookDao = new BookDao(sf);
         book.setEditBy(session.get("user").toString());
         book.setIsbn(id);
-        bookDao.update(book);
+        try {
+            bookDao.update(book);
+        } catch (Exception e) {
+            return "404";
+        }
         addActionMessage(getText("put.success"));
         return "show";
     }
@@ -111,7 +115,11 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
         }
         SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
         BookDao bookDao = new BookDao(sf);
-        bookDao.delete(id);
+        try {
+            bookDao.delete(id);
+        } catch (Exception e) {
+            return "404";
+        }
         addActionError(getText("delete.success"));
         return SUCCESS;
     }
