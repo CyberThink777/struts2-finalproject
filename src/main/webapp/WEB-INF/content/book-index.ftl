@@ -2,9 +2,14 @@
 <head>
     <#include "../template/head.ftl">
     <title><@s.text name="book.title"/> ${user.username}!</title>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 </head>
 <body>
-    <#include "../template/navbar.ftl">
+<#include "../template/navbar.ftl">
     <div class="container">
         <div class="row">
             <div class="col-sm-11">
@@ -17,7 +22,6 @@
                         <th scope="col"><@s.text name="title"/></th>
                         <th scope="col"><@s.text name="count"/></th>
                         <th scope="col"><@s.text name="editBy"/></th>
-                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -25,10 +29,14 @@
                         <#list model as book>
                             <tr>
                                 <th scope="row">${book.isbn}</th>
-                                <td>${book.title}</td>
+                                <td>
+                                    <a href="/book/${book.isbn}" data-toggle="tooltip" data-placement="top"
+                                       title="<@s.text name='index.detail'/>">
+                                        ${book.title}
+                                    </a>
+                                </td>
                                 <td>${book.count}</td>
                                 <td>${book.editBy}</td>
-                                <td><a href="/book/${book.isbn}"><@s.text name="index.detail"/></a></td>
                             </tr>
                         </#list>
                     </#if>

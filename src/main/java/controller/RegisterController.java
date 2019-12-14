@@ -34,7 +34,7 @@ public class RegisterController extends ActionSupport implements ModelDriven<Use
             addActionMessage(getText("register.success"));
             return SUCCESS;
         } else {
-            addActionError(getText("error.duplicate", new String[] {getText("user.username")}));
+            addActionError(getText("error.duplicate", new String[]{getText("user.username")}));
             return INPUT;
         }
     }

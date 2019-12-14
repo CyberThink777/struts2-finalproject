@@ -1,7 +1,6 @@
 package model;
 
-import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
+import com.opensymphony.xwork2.validator.annotations.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +20,7 @@ public class Book implements Serializable {
     }
 
     @RequiredStringValidator(key = "error.required", messageParams = "getText('isbn')")
+    @RegexFieldValidator(regex = "[0-9]{13}", key = "error.isbn")
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
@@ -30,6 +30,7 @@ public class Book implements Serializable {
     }
 
     @RequiredStringValidator(key = "error.required", messageParams = "getText('title')")
+    @StringLengthFieldValidator(maxLength = "255", key = "error.length", messageParams = "getText('title')")
     public void setTitle(String title) {
         this.title = title;
     }
@@ -39,6 +40,7 @@ public class Book implements Serializable {
     }
 
     @RequiredStringValidator(key = "error.required", messageParams = "getText('author')")
+    @StringLengthFieldValidator(maxLength = "255", key = "error.length", messageParams = "getText('author')")
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -48,6 +50,7 @@ public class Book implements Serializable {
     }
 
     @RequiredStringValidator(key = "error.required", messageParams = "getText('publisher')")
+    @StringLengthFieldValidator(maxLength = "255", key = "error.length", messageParams = "getText('publisher')")
     public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
@@ -56,6 +59,8 @@ public class Book implements Serializable {
         return year;
     }
 
+    @RequiredFieldValidator(key = "error.required", messageParams = "getText('year')")
+    @IntRangeFieldValidator(min = "1000", max = "9999", key = "error.year")
     public void setYear(int year) {
         this.year = year;
     }
@@ -64,6 +69,7 @@ public class Book implements Serializable {
         return count;
     }
 
+    @IntRangeFieldValidator(min = "0", max = "99999", key = "error.intLength", messageParams = "getText('count')")
     public void setCount(int count) {
         this.count = count;
     }
