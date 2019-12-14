@@ -43,6 +43,8 @@
                         <@s.textfield class="form-control" name="count" key="count"/>
                     </div>
                     <button type="submit" class="btn btn-primary"><@s.text name="button.submit"/></button>
+                    <button type="reset" class="btn btn-secondary"
+                            onclick="window.location.reload()"><@s.text name="form.reset"/></button>
                 </form>
             </div>
         </div>

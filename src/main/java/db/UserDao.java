@@ -17,8 +17,7 @@ public class UserDao {
     public boolean login(User user) throws NullPointerException {
         try (Session session = sf.openSession()) {
             session.beginTransaction();
-            User storedUser = (User) session.createQuery("from users where username = :username").setParameter("username",
-                    user.getUsername()).uniqueResult();
+            User storedUser = session.get(User.class, user.getUsername());
             session.getTransaction().commit();
             return BCrypt.checkpw(user.getPass(), storedUser.getPass());
         }

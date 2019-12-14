@@ -2,6 +2,7 @@ package controller;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
 import db.BookDao;
 import model.Book;
 import model.User;
@@ -22,6 +23,7 @@ import java.util.Map;
 public class BookController extends ActionSupport implements ModelDriven<Object>, ServletContextAware, SessionAware {
     private Map<String, Object> session;
     private ServletContext ctx;
+    private BookDao bookDao;
     private Book book = new Book();
     private List<Book> bookList;
     private String id;
@@ -32,8 +34,7 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
             addActionError(getText("error.login"));
             return "login";
         }
-        SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
-        BookDao bookDao = new BookDao(sf);
+        prepareDao();
         bookList = bookDao.getBooks();
         return "index";
     }
@@ -44,8 +45,7 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
             addActionError(getText("error.login"));
             return "login";
         }
-        SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
-        BookDao bookDao = new BookDao(sf);
+        prepareDao();
         book = bookDao.getBook(id);
         return book == null ? "404" : "show";
     }
@@ -55,7 +55,7 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
         if (userNotFound()) {
             addActionError(getText("error.login"));
             return "login";
-        } else return "new";
+        } else return "editNew";
     }
 
     //POST /book
@@ -64,10 +64,7 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
             addActionError(getText("error.login"));
             return "login";
         }
-        if (checkPOST())
-            return "new";
-        SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
-        BookDao bookDao = new BookDao(sf);
+        prepareDao();
         book.setEditBy(session.get("user").toString());
         bookDao.create(book);
         addActionMessage(getText("post.success"));
@@ -80,8 +77,7 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
             addActionError(getText("error.login"));
             return "login";
         }
-        SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
-        BookDao bookDao = new BookDao(sf);
+        prepareDao();
         book = bookDao.getBook(id);
         return "edit";
     }
@@ -92,10 +88,7 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
             addActionError(getText("error.login"));
             return "login";
         }
-        if (checkPUT())
-            return "edit";
-        SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
-        BookDao bookDao = new BookDao(sf);
+        prepareDao();
         book.setEditBy(session.get("user").toString());
         book.setIsbn(id);
         try {
@@ -113,8 +106,7 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
             addActionError(getText("error.login"));
             return "login";
         }
-        SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
-        BookDao bookDao = new BookDao(sf);
+        prepareDao();
         try {
             bookDao.delete(id);
         } catch (Exception e) {
@@ -129,16 +121,11 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
         return user == null;
     }
 
-    //TODO 1. Validation
-    private boolean checkPOST() {
-        if (book.getIsbn().trim().equals("")) {
-            addFieldError("isbn", "test");
+    private void prepareDao() {
+        if (bookDao == null) {
+            SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
+            bookDao = new BookDao(sf);
         }
-        return hasFieldErrors();
-    }
-
-    private boolean checkPUT() {
-        return hasFieldErrors();
     }
 
     @Override
@@ -152,6 +139,15 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    @VisitorFieldValidator(appendPrefix = false)
+    public void setBook(Book book) {
+        this.book = book;
     }
 
     @Override

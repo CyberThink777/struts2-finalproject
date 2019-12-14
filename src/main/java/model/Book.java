@@ -1,10 +1,14 @@
 package model;
 
+import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
 
+//TODO Validate
 @Entity(name = "books")
 public class Book implements Serializable {
     private String isbn, title, author, publisher, editBy;
@@ -16,6 +20,7 @@ public class Book implements Serializable {
         return isbn;
     }
 
+    @RequiredStringValidator(key = "error.required", messageParams = "getText('isbn')")
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
@@ -24,6 +29,7 @@ public class Book implements Serializable {
         return title;
     }
 
+    @RequiredStringValidator(key = "error.required", messageParams = "getText('title')")
     public void setTitle(String title) {
         this.title = title;
     }
@@ -32,6 +38,7 @@ public class Book implements Serializable {
         return author;
     }
 
+    @RequiredStringValidator(key = "error.required", messageParams = "getText('author')")
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -40,6 +47,7 @@ public class Book implements Serializable {
         return publisher;
     }
 
+    @RequiredStringValidator(key = "error.required", messageParams = "getText('publisher')")
     public void setPublisher(String publisher) {
         this.publisher = publisher;
     }

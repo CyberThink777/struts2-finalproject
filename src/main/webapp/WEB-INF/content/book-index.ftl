@@ -37,7 +37,9 @@
             </div>
         </div>
         <div class="row">
-            <a href="/book/new"><@s.text name="index.create"/></a>
+            <div class="col">
+                <a href="/book/new"><@s.text name="index.create"/></a>
+            </div>
         </div>
     </div>
 </body>

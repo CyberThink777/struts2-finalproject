@@ -14,7 +14,7 @@
     </div>
     <div class="mx-auto order-0">
         <#if user??>
-            <a class="navbar-brand mx-auto" href="/book"><@s.text name="book.title"/> ${user.username}!</a>
+            <a class="navbar-brand mx-auto" href="/book"><@s.text name="book.title"/> - ${user.username}!</a>
         </#if>
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">

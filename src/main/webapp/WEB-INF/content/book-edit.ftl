@@ -26,8 +26,8 @@
             <form method="POST" action="/book/${id}">
                 <input type="hidden" name="_method" value="PUT"/>
                 <div class="form-group">
-                    <label for="isbn" class="label"><@s.text name="isbn"/>:</label>
-                    <p id="isbn" class="form-control-plaintext" aria-describedby="isbnHelp">${model.isbn}</p>
+                    <@s.textfield class="form-control-plaintext" name="isbn" key="isbn" value="${model.isbn}"
+                    readonly="true" dynamicAttributes={"aria-describedby":"isbnHelp"}/>
                     <small id="isbnHelp" class="form-text text-muted"><@s.text name="isbn.help"/></small>
                 </div>
                 <div class="form-group">
@@ -46,7 +46,9 @@
                     <@s.textfield class="form-control" name="count" key="count" value="${model.count}"/>
                 </div>
                 <button type="submit" class="btn btn-primary"><@s.text name="button.submit"/></button>
-                <button type="reset" class="btn btn-secondary" onclick="window.location.reload()"><@s.text name="form.reset"/></button>
+                <button type="reset" class="btn btn-secondary" onclick="window.location.href = '/book/${id}/edit' ">
+                    <@s.text name="form.reset"/>
+                </button>
             </form>
         </div>
     </div>
