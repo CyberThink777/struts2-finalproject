@@ -1,7 +1,7 @@
 <html lang="${.lang}">
 <head>
     <#include "../template/head.ftl">
-    <title><@s.text name="book.title"/> ${user.username}!</title>
+    <title><@s.text name="welcome"/> ${user.username}!</title>
     <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
@@ -10,8 +10,8 @@
 </head>
 <body>
 <#include "../template/navbar.ftl">
-    <div class="container">
-        <div class="row">
+<div class="container">
+    <div class="row">
             <div class="col-sm-11">
                 <h1 class="m-3"><@s.text name="index.heading"/></h1>
                 <#include "../template/actionMsg.ftl">

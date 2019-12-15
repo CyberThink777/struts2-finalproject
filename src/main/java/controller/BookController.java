@@ -9,6 +9,7 @@ import model.User;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.interceptor.SessionAware;
+import org.apache.struts2.interceptor.validation.SkipValidation;
 import org.apache.struts2.util.ServletContextAware;
 import org.hibernate.SessionFactory;
 
@@ -101,6 +102,7 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
     }
 
     //DELETE /book/${id}
+    @SkipValidation
     public String destroy() {
         if (userNotFound()) {
             addActionError(getText("error.login"));

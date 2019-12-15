@@ -52,7 +52,7 @@ public class BookDao {
     public void create(Book book) {
         try (Session session = sf.openSession()) {
             session.beginTransaction();
-            session.save(book);
+            session.persist(book);
             session.getTransaction().commit();
         }
     }

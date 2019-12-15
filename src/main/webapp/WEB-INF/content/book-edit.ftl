@@ -1,11 +1,12 @@
 <html lang="${.lang}">
 <head>
     <#include "../template/head.ftl">
-    <title><@s.text name="index.create"/></title>
+    <title><@s.text name="index.edit"/> ${id}</title>
     <style>
         .top-m {
-            margin:10% auto 0% auto;
+            margin: 10% auto 0% auto;
         }
+
         .errorMessage {
             display: inherit;
             color: red;
@@ -22,7 +23,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-6 top-m">
-            <h2 class="mx-auto"><@s.text name="index.create"/></h2>
+            <h2 class="mx-auto"><@s.text name="index.edit"/></h2>
             <form method="POST" action="/book/${id}">
                 <input type="hidden" name="_method" value="PUT"/>
                 <div class="form-group">
