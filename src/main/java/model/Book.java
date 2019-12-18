@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-//TODO Validate
 @Entity(name = "books")
 public class Book implements Serializable {
     private String isbn, title, author, publisher, editBy;
