@@ -4,6 +4,7 @@ import model.Book;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import javax.persistence.PersistenceException;
 import java.util.List;
 
 public class BookDao {
@@ -49,11 +50,14 @@ public class BookDao {
         }
     }
 
-    public void create(Book book) {
+    public boolean create(Book book) {
         try (Session session = sf.openSession()) {
             session.beginTransaction();
             session.persist(book);
             session.getTransaction().commit();
+            return true;
+        } catch (PersistenceException e) {
+            return false;
         }
     }
 }

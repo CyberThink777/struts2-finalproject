@@ -67,9 +67,13 @@ public class BookController extends ActionSupport implements ModelDriven<Object>
         }
         prepareDao();
         book.setEditBy(session.get("user").toString());
-        bookDao.create(book);
-        addActionMessage(getText("post.success"));
-        return SUCCESS;
+        if (bookDao.create(book)) {
+            addActionMessage(getText("post.success"));
+            return SUCCESS;
+        } else {
+            addFieldError("isbn", getText("error.duplicate", new String[]{getText("isbn")}));
+            return "editNew";
+        }
     }
 
     //GET /book/${id}/edit
